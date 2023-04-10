@@ -2,6 +2,7 @@ package com.example.simple.webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,15 +17,14 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
 
     public Book() {
     }
 
-    public Book(String title, String isbn, Set<Author> authors) {
+    public Book(String title, String isbn) {
         this.title = title;
         this.isbn = isbn;
-        this.authors = authors;
     }
 
     public String getTitle() {
@@ -47,15 +47,6 @@ public class Book {
         return authors;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -70,5 +61,15 @@ public class Book {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", authors=" + authors +
+                '}';
     }
 }
