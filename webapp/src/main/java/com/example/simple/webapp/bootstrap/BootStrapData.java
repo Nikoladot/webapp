@@ -30,6 +30,7 @@ public class BootStrapData implements CommandLineRunner {
         eric.getBooks().add(ddd);
         ddd.getAuthor().add(eric);
 
+
         authorRepository.save(eric);
         bookRepository.save(ddd);
 
@@ -40,10 +41,22 @@ public class BootStrapData implements CommandLineRunner {
 
         Publisher laguna = new Publisher("Laguna", "Mazuraniceva 28", "Beograd", "Vozdovac", "11010");
 
+        ddd.setPublisher(laguna);
+        laguna.getBooks().add(ddd);
+
+        publisherRepository.save(laguna);
         authorRepository.save(rod);
         bookRepository.save(noEJB);
         publisherRepository.save(laguna);
 
+        noEJB.setPublisher(laguna);
+        laguna.getBooks().add(noEJB);
+
+        publisherRepository.save(laguna);
+
+        System.out.println("Number of books: " + bookRepository.count());
+        System.out.println("Publisher Number of Books: " + laguna.getBooks().size());
+        System.out.println("-----------------------------------------------");
 
         System.out.println("Started in Bootstrap");
         System.out.println("Number of Books: " + bookRepository.count());
